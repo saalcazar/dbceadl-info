@@ -272,7 +272,7 @@ SELECT validate_super_user('ceadl'::character varying, 'a1b2c3d4c0'::character v
 
 DROP FUNCTION IF EXISTS validate_user(character varying, character varying)
 
-CREATE OR REPLACE FUNCTION validate_user (_nick_user character varying, _password_user character varying) RETURNS TABLE (name_user character varying, charge character varying)
+CREATE OR REPLACE FUNCTION validate_user (_nick_user character varying, _password_user character varying) RETURNS TABLE (name_user character varying, profile character varying)
 AS $$ DECLARE
   user_nick users.nick_user%TYPE;
   user_password users.password_user%TYPE;
@@ -283,7 +283,7 @@ BEGIN
     RETURN QUERY
     SELECT
       u.name_user,
-      u.charge
+      u.profile
     FROM users u
     WHERE u.nick_user = _nick_user;
   ELSE RAISE EXCEPTION 'El usuario no existe';
