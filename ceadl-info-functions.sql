@@ -643,6 +643,18 @@ AS $$ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+--Delete quantitatives
+CREATE OR REPLACE FUNCTION delete_quantitatives(_id_activity smallint)
+RETURNS void
+AS $$ BEGIN
+	IF _id_quantitative IS NOT NULL THEN
+		DELETE FROM quantitatives WHERE id_quantitative = _id_quantitative;
+	ELSE
+		RAISE EXCEPTION 'No se pudo eliminar el proyecto';
+	END IF;
+END;
+$$ LANGUAGE plpgsql;
+
 SELECT create_quantitative (
     '50'::smallint,
     '2023-05-30'::date,
